@@ -18,14 +18,19 @@ from performMeasurements import updateMeasurementArrays
 from performReconOnce import performReconOnce
 from loader import loadTestImage
 
+from plotter import plotAfterSLADSSimulation, plotAfterSLADS
 from pathOrder_greedy import pathOrder
 
 
 
 def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta,TrainingInfo,Resolution,ImageType,UpdateERDParams,BatchSamplingParams,SavePath,SimulationRun,ImNum,ImageExtension,PlotResult,Classify):
-  
+
+
+
     MeasuredIdxs = np.transpose(np.where(Mask==1))
     UnMeasuredIdxs = np.transpose(np.where(Mask==0))
+
+
     
     ContinuousMeasuredValues = perfromInitialMeasurements(CodePath,ImageSet,ImNum,ImageExtension,Mask,SimulationRun)
     
@@ -44,7 +49,13 @@ def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta
         # NewValues is the vector of measured values post classification
     elif Classify=='N':
         MeasuredValues=ContinuousMeasuredValues
-    
+
+    if PlotResult == 'Y':
+        Difference, Recons = performReconOnce(SavePath, TrainingInfo, Resolution, SizeImage, ImageType, CodePath, ImageSet, ImNum,
+                         ImageExtension, SimulationRun, MeasuredIdxs, UnMeasuredIdxs, MeasuredValues)
+        plotAfterSLADS(Mask, Recons)
+        pylab.show()
+
     # Perform SLADS
     IterNum=0
     Stop=0
@@ -86,7 +97,13 @@ def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta
             
         Stop = checkStopCondFuncThreshold(StopCondParams,StopCondFuncVal,NumSamples,IterNum,SizeImage)
         if PlotResult=='Y' and np.remainder(NumSamples,round(0.01*SizeImage[0]*SizeImage[1])) ==0:
-            print(str(np.round(NumSamples*100/(SizeImage[0]*SizeImage[1]))) + ' Percent Sampled')
+            sampled_percent = np.round(NumSamples*100/(SizeImage[0]*SizeImage[1]))
+            print(sampled_percent, ' Percent Sampled')
+            if sampled_percent == 10:
+                Difference, ReconImage = performReconOnce(SavePath, TrainingInfo, Resolution, SizeImage, ImageType,
+                                                          CodePath, ImageSet, ImNum, ImageExtension, SimulationRun,
+                                                          MeasuredIdxs, UnMeasuredIdxs, MeasuredValues)
+                plotAfterSLADS(Mask, ReconImage, 'After 10%')
         IterNum += 1
         
         
@@ -116,9 +133,9 @@ def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta
         print('')
         print('######################################')
         print('Total Distortion = ' + str(TD))
-        
-        from plotter import plotAfterSLADSSimulation  
-        plotAfterSLADSSimulation(Mask,ReconImage,img)
+
+        #plotAfterSLADSSimulation(Mask,ReconImage,img)
+        plotAfterSLADS(Mask, ReconImage, 'After 20%')
         pylab.show()
 
         
@@ -350,7 +367,7 @@ def runEDSSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Th
         print('')
         print('######################################')
         print('Total Distortion = ' + str(TD))
-        
+
         from plotter import plotAfterSLADSSimulation
         plotAfterSLADSSimulation(Mask,ReconImage,img)
         pylab.show()

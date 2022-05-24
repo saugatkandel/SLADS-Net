@@ -2,6 +2,7 @@
 from scipy.io import loadmat
 import os
 import sys
+import imageio
 
 def loadTestImage(CodePath,ImageSet,ImNum,ImageExtension,SimulationRun):
     
@@ -19,7 +20,7 @@ def loadTestImage(CodePath,ImageSet,ImNum,ImageExtension,SimulationRun):
                 ImgDat=loadmat(image_path)
                 Img=ImgDat['img']
             else:
-                Img = misc.imread(image_path)
+                Img = imageio.imread(image_path)
         cnt = cnt+1
     try:
         Img

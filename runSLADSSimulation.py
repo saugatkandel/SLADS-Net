@@ -8,8 +8,8 @@ import timeit
 ###############################################################################
 ############## USER INPUTS: L-0 ###############################################
 ###############################################################################
-
-i = 9  ## the index of testing examples in /ResultsAndData/TestingImages/
+# 2, 9, 10, 11
+i = 10  ## the index of testing examples in /ResultsAndData/TestingImages/
 
 # Name of folder to save result in    
 FolderName = 'Example_' + str(i)
@@ -18,22 +18,22 @@ FolderName = 'Example_' + str(i)
 ImageType = 'C'
 
 # Image extention
-ImageExtension = '.png'
+ImageExtension = '.tif'
 
 # If TestingImageSet_X used enter 'X'
 TestingImageSet = str(i)    
 
 # If TrainingDB_Y was used for training enter 'Y'          
-TrainingImageSet = '1'   
+TrainingImageSet = '4'
 
 # Image resolution in pixels   
 SizeImage = [256,256]
 
 # Value of c found in training     
-c=8
+c=2
 
 # Maximum  sampling percentage 
-StoppingPercentage = 40
+StoppingPercentage = 20
 # If you want to use stopping function used, enter threshold (from Training), 
 # else leave at 0      
 StoppingThrehsold = 0
@@ -82,8 +82,17 @@ MaxWindSize = 10
 start = timeit.default_timer()
 
 from runSLADSSimulationScript import runSLADSSimulationScript
-runSLADSSimulationScript(FolderName,ImageType,ImageExtension,TestingImageSet,TrainingImageSet,SizeImage,c,StoppingPercentage,StoppingThrehsold,Classify,PercentageInitialMask,MaskType,BatchSample,PlotResult,NumSamplesPerIter,Update_ERD,MinWindSize,MaxWindSize)
+
+for TestingImageSet in ['11']:
+    try:
+        ImageExtension = '.tif'
+        runSLADSSimulationScript(FolderName,ImageType,ImageExtension,TestingImageSet,TrainingImageSet,SizeImage,c,StoppingPercentage,StoppingThrehsold,Classify,PercentageInitialMask,MaskType,BatchSample,PlotResult,NumSamplesPerIter,Update_ERD,MinWindSize,MaxWindSize)
+    except:
+        ImageExtension = '.png'
+        runSLADSSimulationScript(FolderName, ImageType, ImageExtension, TestingImageSet, TrainingImageSet, SizeImage, c,
+                                 StoppingPercentage, StoppingThrehsold, Classify, PercentageInitialMask, MaskType,
+                                 BatchSample, PlotResult, NumSamplesPerIter, Update_ERD, MinWindSize, MaxWindSize)
 
 stop = timeit.default_timer()
 
-print stop - start 
+print(stop - start)

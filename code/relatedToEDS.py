@@ -82,10 +82,10 @@ def classifySpectrum(s,CodePath,EDSData, tfclf):
 
     classLabel = np.argmax(sess.run(y_conv, feed_dict={x: s.reshape((1,2040)), y_: np.zeros((1,2)), keep_prob: 1.0}))
     
-#    import _pickle as cPickle
-#    import cPickle
+#    import _pickle as pickle
+#    import pickle
 #    with open(filename + 'Classifier.pkl', 'rb') as fid:
-#        clf = cPickle.load(fid)
+#        clf = pickle.load(fid)
 #    classLabel = clf.predict(s)
 #    print(classLabel)
     return classLabel+1
@@ -101,10 +101,10 @@ def regressSpectrum(s,CodePath,EDSData):
 #    from EDStfRegLoader import tfRegress
 #    regressValue = tfRegress(s)
     
-#    import _pickle as cPickle
-    import cPickle
+#    import _pickle as pickle
+    import pickle
     with open(filename + 'Regressor.pkl', 'rb') as fid:
-        reg = cPickle.load(fid)
+        reg = pickle.load(fid)
     regressValue = reg.predict(s)
     return regressValue
 

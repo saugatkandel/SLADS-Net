@@ -20,7 +20,7 @@ TrainingImageSet = '1'
 SizeImage = [64,64]
 
 # Value of c found in training     
-c=1
+c=2
 
 # Maximum  sampling percentage 
 StoppingPercentage = 50

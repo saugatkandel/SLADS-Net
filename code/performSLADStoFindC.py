@@ -7,7 +7,7 @@ import glob
 from runSLADSOnce import runSLADSSimulationOnce
 from performReconOnce import performReconOnce
 from loader import loadOrGenerateInitialMask
-import cPickle
+import pickle
 
 def performSLADStoFindC(CodePath,TrainingDataPath,ImageSet,ImageType,ImageExtension,TrainingInfo,SizeImage,StopPercentage,Resolution,c_vec,UpdateERDParams,InitialMask,MaskType,reconPercVector,Classify):
     SimulationRun = 0   
@@ -22,7 +22,7 @@ def performSLADStoFindC(CodePath,TrainingDataPath,ImageSet,ImageType,ImageExtens
     StopCondParams.initialize(Beta,0,50,2,StopPercentage)
     
     SavePathSLADS = TrainingDataPath + 'SLADSResults' 
-    PlotResult = 'N'
+    PlotResult = 'Y'
 
     # Batch Sampling
     PercOfSamplesPerIter = 0
@@ -47,7 +47,7 @@ def performSLADStoFindC(CodePath,TrainingDataPath,ImageSet,ImageType,ImageExtens
         TrainingInfo.FilterC=c
 #        Theta = np.load(LoadPath_c + os.path.sep + 'Theta.npy')
         with open(LoadPath_c + os.path.sep + 'Theta.pkl', 'rb') as fid:
-            Theta = cPickle.load(fid)
+            Theta = pickle.load(fid)
         
         loadPathImage = TrainingDataPath + 'ImagesToFindC' + os.path.sep   
         NumImages = np.size(glob.glob(loadPathImage + '*' + ImageExtension))

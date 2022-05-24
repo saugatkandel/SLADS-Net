@@ -13,10 +13,10 @@ warnings.filterwarnings("ignore")
 ImageType = 'C'
 
 # Image extention
-ImageExtension = '.tif'
+ImageExtension = '.png'
 
 # if TrainingDB_X used enter 'X'             
-TrainingImageSet = '1'
+TrainingImageSet = '4'
 
 # Image resolution in pixels    
 SizeImage = [256,256]
@@ -73,5 +73,6 @@ DesiredTD=0
 ###############################################################################
 NumReconsSLADS=10
 PercOfRD=20
+
 from runTrainingScript import runTrainingScript
 runTrainingScript(ImageType,ImageExtension,TrainingImageSet,SizeImage,c_vec,StopPercentageSLADS,FindStopThresh,MeasurementPercentageVector,WindowSize,Update_ERD,MinWindSize,MaxWindSize,PercentageInitialMask,MaskType,DesiredTD,NumReconsSLADS,PercOfRD)                  

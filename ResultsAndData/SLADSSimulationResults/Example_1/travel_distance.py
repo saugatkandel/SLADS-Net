@@ -52,8 +52,8 @@ plt.xlabel('pixel')
 plt.ylabel('traved distance')
 plt.show()
 
-print dist_cdf[-1]
-print dist_order_cdf[-1]
+print(dist_cdf[-1])
+print(dist_order_cdf[-1])
 
 
 
