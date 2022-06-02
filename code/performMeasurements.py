@@ -56,7 +56,7 @@ def findNewMeasurementIdxs(Mask,MeasuredIdxs,UnMeasuredIdxs,MeasuredValues,Theta
         TempMaxIdxsVect = np.zeros((ActualBatchSamplingParams.NumSamplesPerIter,1),dtype=np.int)
         TempMaxIdxsVect[0] = np.argmax(ERDValues)
         TempNewIdxs[0,:] = UnMeasuredIdxs[MaxIdxsVect[0],:]
-        
+
         TempBatchSamplingParams = BatchSamplingParams()
         TempBatchSamplingParams.initialize('N',1)
         OrigUnMeasuredIdxs=np.zeros((np.shape(UnMeasuredIdxs)))

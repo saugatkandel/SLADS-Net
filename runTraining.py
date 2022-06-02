@@ -13,16 +13,16 @@ warnings.filterwarnings("ignore")
 ImageType = 'C'
 
 # Image extention
-ImageExtension = '.png'
+ImageExtension = '.tif'
 
 # if TrainingDB_X used enter 'X'             
-TrainingImageSet = '4'
+TrainingImageSet = '6'
 
 # Image resolution in pixels    
 SizeImage = [256,256]
 
 # Sweep range for c (to select best c for RD approximation)
-c_vec = np.array([2,4,8,16])
+c_vec = np.array([16])
 
 # Stopping percentage for SLADS (to select C)
 # Suggested: (64x64):50, (128x128):30, (256x256):20, (512x512):10

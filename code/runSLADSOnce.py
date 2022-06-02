@@ -99,11 +99,12 @@ def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta
         if PlotResult=='Y' and np.remainder(NumSamples,round(0.01*SizeImage[0]*SizeImage[1])) ==0:
             sampled_percent = np.round(NumSamples*100/(SizeImage[0]*SizeImage[1]))
             print(sampled_percent, ' Percent Sampled')
-            if sampled_percent == 10:
+            if sampled_percent % 10 == 0:
                 Difference, ReconImage = performReconOnce(SavePath, TrainingInfo, Resolution, SizeImage, ImageType,
                                                           CodePath, ImageSet, ImNum, ImageExtension, SimulationRun,
                                                           MeasuredIdxs, UnMeasuredIdxs, MeasuredValues)
-                plotAfterSLADS(Mask, ReconImage, 'After 10%')
+                TD = Difference / (SizeImage[0] * SizeImage[1])
+                plotAfterSLADS(Mask, ReconImage, f'After {sampled_percent:3.0f}% with distortion {TD:4.4g}')
         IterNum += 1
         
         
@@ -135,7 +136,7 @@ def runSLADSSimulationOnce(Mask,CodePath,ImageSet,SizeImage,StopCondParams,Theta
         print('Total Distortion = ' + str(TD))
 
         #plotAfterSLADSSimulation(Mask,ReconImage,img)
-        plotAfterSLADS(Mask, ReconImage, 'After 20%')
+        plotAfterSLADS(Mask, ReconImage, f'After {sampled_percent}%')
         pylab.show()
 
         

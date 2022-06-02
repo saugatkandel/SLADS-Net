@@ -30,7 +30,7 @@ TrainingImageSet = '4'
 SizeImage = [256,256]
 
 # Value of c found in training     
-c=2
+c = 16
 
 # Maximum  sampling percentage 
 StoppingPercentage = 20
@@ -83,15 +83,16 @@ start = timeit.default_timer()
 
 from runSLADSSimulationScript import runSLADSSimulationScript
 
-for TestingImageSet in ['11']:
-    try:
-        ImageExtension = '.tif'
-        runSLADSSimulationScript(FolderName,ImageType,ImageExtension,TestingImageSet,TrainingImageSet,SizeImage,c,StoppingPercentage,StoppingThrehsold,Classify,PercentageInitialMask,MaskType,BatchSample,PlotResult,NumSamplesPerIter,Update_ERD,MinWindSize,MaxWindSize)
-    except:
-        ImageExtension = '.png'
-        runSLADSSimulationScript(FolderName, ImageType, ImageExtension, TestingImageSet, TrainingImageSet, SizeImage, c,
-                                 StoppingPercentage, StoppingThrehsold, Classify, PercentageInitialMask, MaskType,
-                                 BatchSample, PlotResult, NumSamplesPerIter, Update_ERD, MinWindSize, MaxWindSize)
+for TrainingImageSet in ['6']:
+    for TestingImageSet in ['13']:
+        try:
+            ImageExtension = '.tif'
+            runSLADSSimulationScript(FolderName,ImageType,ImageExtension,TestingImageSet,TrainingImageSet,SizeImage,c,StoppingPercentage,StoppingThrehsold,Classify,PercentageInitialMask,MaskType,BatchSample,PlotResult,NumSamplesPerIter,Update_ERD,MinWindSize,MaxWindSize)
+        except:
+            ImageExtension = '.png'
+            runSLADSSimulationScript(FolderName, ImageType, ImageExtension, TestingImageSet, TrainingImageSet, SizeImage, c,
+                                     StoppingPercentage, StoppingThrehsold, Classify, PercentageInitialMask, MaskType,
+                                     BatchSample, PlotResult, NumSamplesPerIter, Update_ERD, MinWindSize, MaxWindSize)
 
 stop = timeit.default_timer()
 
